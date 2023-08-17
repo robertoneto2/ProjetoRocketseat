@@ -26,6 +26,7 @@
 
 body {
   background: var(--bg-url) no-repeat top center/cover; 
+  height: 100vh;
 }
 
 body * {
@@ -34,7 +35,8 @@ body * {
 }   
 
 #container {
-  width: 360px; 
+  width: 100%; 
+  max-width: 588px;
   margin: 56px auto 0px; 
   padding: 0 24px;
 }
@@ -67,17 +69,22 @@ body * {
   background: white var(--switch-bg-url) no-repeat center; 
   border: 0;
   border-radius: 50%;
-
+  
   position: absolute; /* sobreposição */
   top: 50%; /* fez com que alinha-se ao meio junto ao translate */
-  right: 0; /* lado do icone */
+  left: 0; /* lado do icone */
   z-index: 1; /* andar */
   transform: translateY(-50%); /* movimento dos eixos para alinhar */
+
+  animation: slide-back 0.4s;
 }
 
 .light #switch button {
-  right: 0;
-  left: initial;
+  animation: slide-in 0.4s forwards;
+}
+
+#switch button:hover {
+  outline: 8px solid var(--highlight-color);
 }
 
 #switch span {
@@ -158,4 +165,36 @@ footer {
   padding: 24px;
   text-align: center;
   font-size: 14px;
+}
+
+/* media queries */
+@media (min-width: 700px) {
+  :root {
+    --bg-url: url(./assets/bg-desktop.jpg);
+  }
+
+  .light {
+      --bg-url: url(./assets/bg-desktop-light.jpg);
+  }
+}
+
+/* animation */
+@keyframes slide-in {
+  from {
+    left: 0;
+  }
+
+  to {
+    left: 50%;
+  }
+}
+
+@keyframes slide-back {
+  from {
+    left: 50%;
+  }
+
+  to {
+    left: 0;
+  }
 }
